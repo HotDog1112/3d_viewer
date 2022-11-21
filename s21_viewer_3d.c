@@ -87,7 +87,7 @@ int makeMatrix(int rows, int columns, vertex_t *result) {
 
 void createVertexStructure(data_t *obj) {
     obj->polygons = calloc(obj->facets, sizeof(polygon_t));
-    obj->polygons->vertex = calloc(obj->polygons->counter_of_vertexes, sizeof(int));
+    obj->polygons->vertex = calloc(obj->polygons->counter_of_vertexes - 1, sizeof(int));
 }
 
 
@@ -101,7 +101,7 @@ void createVertexStructure(data_t *obj) {
 
 void cleanPolStruct(polygon_t *pol, int count) {
     int i = 0;
-    while (i != count + 1) {
+    while (i != count) {
         free(pol[i].vertex);
         i++;
     }
@@ -131,8 +131,8 @@ int fillStructure(data_t *obj, FILE *file) {           // возвращает  
         } else if (strchr(str, 'f') != NULL) {
             int p = parsePolygon(str, obj->polygons, 0, 0);        // считаем сколько вершин
             if (p < 3) {          // если вершин меньше 3, то стоп, по заданию от 3 до бесконечности
-                free(str); 
-                break; 
+                free(str);
+                break;
             } else {
                 obj->polygons[j].counter_of_vertexes = p;   // сколько вершин соединяет полигон
                 obj->polygons[j].vertex = calloc(obj->polygons->counter_of_vertexes, sizeof(int));
@@ -146,7 +146,7 @@ int fillStructure(data_t *obj, FILE *file) {           // возвращает  
         free(str);
     }
     fclose(file);
-    return j; 
+    return j;
 }
 
 
@@ -258,7 +258,7 @@ void printer(data_t* obj) {
  */
 
 void moveObj_x(data_t* obj, double num) {
-	for (int i = 0; i < obj->object_3d.rows; i++) { 
+    for (int i = 0; i < obj->object_3d.rows; i++) {
         obj->object_3d.coordinates[i][0] += num;
     }
 }
@@ -273,7 +273,7 @@ void moveObj_x(data_t* obj, double num) {
  */
 
 void moveObj_y(data_t* obj, double num) {
-	for (int i = 0; i < obj->object_3d.rows; i++) { 
+    for (int i = 0; i < obj->object_3d.rows; i++) {
         obj->object_3d.coordinates[i][1] += num;
     }
 }
@@ -288,7 +288,7 @@ void moveObj_y(data_t* obj, double num) {
  */
 
 void moveObj_z(data_t* obj, double num) {
-	for (int i = 0; i < obj->object_3d.rows; i++) { 
+    for (int i = 0; i < obj->object_3d.rows; i++) {
         obj->object_3d.coordinates[i][2] += num;
     }
 }
@@ -320,12 +320,12 @@ void scaleObj(data_t* obj, double num) {
  */
 
 void rotateX(data_t* obj, double num) {
-	for (int i = 0; i < obj->vertexes; i++) {
-		double tmp_y = obj->object_3d.coordinates[i][1];
-		double tmp_z = obj->object_3d.coordinates[i][2];
-		obj->object_3d.coordinates[i][1] = cos(num) * tmp_y - sin(num) * tmp_z;
-		obj->object_3d.coordinates[i][2] = sin(num) * tmp_y + cos(num) * tmp_z;
-	}
+    for (int i = 0; i < obj->vertexes; i++) {
+        double tmp_y = obj->object_3d.coordinates[i][1];
+        double tmp_z = obj->object_3d.coordinates[i][2];
+        obj->object_3d.coordinates[i][1] = cos(num) * tmp_y - sin(num) * tmp_z;
+        obj->object_3d.coordinates[i][2] = sin(num) * tmp_y + cos(num) * tmp_z;
+    }
 }
 
 
@@ -338,12 +338,12 @@ void rotateX(data_t* obj, double num) {
  */
 
 void rotateY(data_t* obj, double num) {
-	for (int i = 0; i < obj->vertexes; i++) {
-		double tmp_x = obj->object_3d.coordinates[i][0];
-		double tmp_z = obj->object_3d.coordinates[i][2];
-		obj->object_3d.coordinates[i][0] = sin(num) * tmp_z + cos(num) * tmp_x;
-		obj->object_3d.coordinates[i][2] = cos(num) * tmp_z - sin(num) * tmp_x;
-	}
+    for (int i = 0; i < obj->vertexes; i++) {
+        double tmp_x = obj->object_3d.coordinates[i][0];
+        double tmp_z = obj->object_3d.coordinates[i][2];
+        obj->object_3d.coordinates[i][0] = sin(num) * tmp_z + cos(num) * tmp_x;
+        obj->object_3d.coordinates[i][2] = cos(num) * tmp_z - sin(num) * tmp_x;
+    }
 }
 
 
@@ -356,12 +356,12 @@ void rotateY(data_t* obj, double num) {
  */
 
 void rotateZ(data_t* obj, double num) {
-	for (int i = 0; i < obj->vertexes; i++) {
-		double tmp_x = obj->object_3d.coordinates[i][0];
-		double tmp_y = obj->object_3d.coordinates[i][1];
-		obj->object_3d.coordinates[i][0] = cos(num) * tmp_x + sin(num) * tmp_y;
-		obj->object_3d.coordinates[i][1] = cos(num) * tmp_y - sin(num) * tmp_x;
-	}
+    for (int i = 0; i < obj->vertexes; i++) {
+        double tmp_x = obj->object_3d.coordinates[i][0];
+        double tmp_y = obj->object_3d.coordinates[i][1];
+        obj->object_3d.coordinates[i][0] = cos(num) * tmp_x + sin(num) * tmp_y;
+        obj->object_3d.coordinates[i][1] = cos(num) * tmp_y - sin(num) * tmp_x;
+    }
 }
 
 int main() {
@@ -391,6 +391,6 @@ int main() {
     return 0;
 }
 
-// one memory leak instead 
+// one memory leak instead
 // checking of file should be better, no certainty that it will be no error or incorrect count of v/f
 // https://grafika.me/node/82 - about rotates
