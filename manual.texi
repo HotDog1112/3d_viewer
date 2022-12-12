@@ -1,0 +1,44 @@
+\input texinfo
+@setfilename manual
+@settitle s21_3dViewer_v1.0
+@documentencoding UTF-8
+@chapter  3DViewer - basic functions
+Firstly, the following modifications are considered (part 1):
+@enumerate
+@item
+Athenian transformations - rotate
+@item
+Athenian transformations - scale
+@item
+Athenian transformations - move
+@end enumerate
+
+The application implements the movement of the model, its rotation and increase.
+Settings are applied immediately. 
+Information about the file is indicated - its name, number of vertices and polygons
+
+@chapter Projection and display settings:
+@enumerate
+@item
+Projection type - parallel and central
+@item
+Polygon type - dotted or solid, color and thickness
+@item
+Vertex type - size, color and display (square, circle, none)
+@item
+Background color
+@end enumerate
+
+Ability to save settings added
+
+
+
+@chapter Additional settings and features - Recording:
+@enumerate
+@item
+Saving in formats (.jpeg, .bmp)
+@item
+GIF conversion
+@end enumerate
+
+@bye
