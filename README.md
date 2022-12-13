@@ -14,3 +14,4 @@
 - `make dvi` - generate manual
 - `make check` - cppcheck, style tests (clang-format)
 
+![image](https://github.com/HotDog1112/3d_viewer/blob/main/test_figure.gif)
